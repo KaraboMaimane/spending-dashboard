@@ -1,0 +1,16 @@
+services:
+  mock-api:
+    image: node:20-alpine
+    working_dir: /data
+    volumes:
+      - ./data:/data
+    command: npx json-server --watch db.json --port 5000 --host 0.0.0.0
+    ports:
+      - "5000:5000"
+  
+  frontend:
+    build: .
+    ports:
+      - "3001:80"
+    depends_on:
+      - mock-api

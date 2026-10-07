@@ -1,0 +1,57 @@
+{
+  "summary": {
+    "accountHolder": "K. V. Maimane",
+    "totalSpent": 14250.00,
+    "monthlyIncome": 35000.00,
+    "netSavings": 20750.00,
+    "currency": "ZAR"
+  },
+  "categories": [
+    { "id": "groceries", "name": "Groceries", "amount": 4200.00, "color": "#004B87" },
+    { "id": "utilities", "name": "Rent & Municipal", "amount": 6500.00, "color": "#E31B23" },
+    { "id": "fuel", "name": "Fuel & Transport", "amount": 2100.00, "color": "#F59E0B" },
+    { "id": "entertainment", "name": "Subscriptions & Leisure", "amount": 1450.00, "color": "#10B981" }
+  ],
+  "transactions": [
+    {
+      "id": "tx-001",
+      "date": "2026-10-01",
+      "merchant": "Woolworths Food",
+      "category": "Groceries",
+      "amount": 842.50,
+      "type": "debit"
+    },
+    {
+      "id": "tx-002",
+      "date": "2026-10-02",
+      "merchant": "Shell Goodwood",
+      "category": "Fuel & Transport",
+      "amount": 650.00,
+      "type": "debit"
+    },
+    {
+      "id": "tx-003",
+      "date": "2026-10-03",
+      "merchant": "City of Cape Town Electricity",
+      "category": "Rent & Municipal",
+      "amount": 500.00,
+      "type": "debit"
+    },
+    {
+      "id": "tx-004",
+      "date": "2026-10-04",
+      "merchant": "Checkers Hyper",
+      "category": "Groceries",
+      "amount": 1240.20,
+      "type": "debit"
+    },
+    {
+      "id": "tx-005",
+      "date": "2026-10-05",
+      "merchant": "Netflix South Africa",
+      "category": "Subscriptions & Leisure",
+      "amount": 199.00,
+      "type": "debit"
+    }
+  ]
+}
