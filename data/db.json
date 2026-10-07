@@ -1,57 +1,157 @@
 {
-  "summary": {
-    "accountHolder": "K. V. Maimane",
-    "totalSpent": 14250.00,
-    "monthlyIncome": 35000.00,
-    "netSavings": 20750.00,
+  "profile": {
+    "customerId": "12345",
+    "name": "John Doe",
+    "email": "john.doe@email.com",
+    "joinDate": "2023-01-15",
+    "accountType": "premium",
+    "totalSpent": 15420.50,
     "currency": "ZAR"
   },
+  "summary": {
+    "period": "30d",
+    "totalSpent": 4250.75,
+    "transactionCount": 47,
+    "averageTransaction": 90.44,
+    "topCategory": "Groceries",
+    "comparedToPrevious": {
+      "spentChange": 12.5,
+      "transactionChange": -3.2
+    }
+  },
   "categories": [
-    { "id": "groceries", "name": "Groceries", "amount": 4200.00, "color": "#004B87" },
-    { "id": "utilities", "name": "Rent & Municipal", "amount": 6500.00, "color": "#E31B23" },
-    { "id": "fuel", "name": "Fuel & Transport", "amount": 2100.00, "color": "#F59E0B" },
-    { "id": "entertainment", "name": "Subscriptions & Leisure", "amount": 1450.00, "color": "#10B981" }
+    {
+      "name": "Groceries",
+      "amount": 1250.30,
+      "percentage": 29.4,
+      "transactionCount": 15,
+      "color": "#FF6B6B",
+      "icon": "shopping-cart"
+    },
+    {
+      "name": "Entertainment",
+      "amount": 890.20,
+      "percentage": 20.9,
+      "transactionCount": 8,
+      "color": "#4ECDC4",
+      "icon": "film"
+    },
+    {
+      "name": "Transportation",
+      "amount": 680.45,
+      "percentage": 16.0,
+      "transactionCount": 12,
+      "color": "#45B7D1",
+      "icon": "car"
+    },
+    {
+      "name": "Dining",
+      "amount": 520.30,
+      "percentage": 12.2,
+      "transactionCount": 9,
+      "color": "#F7DC6F",
+      "icon": "utensils"
+    },
+    {
+      "name": "Shopping",
+      "amount": 450.80,
+      "percentage": 10.6,
+      "transactionCount": 6,
+      "color": "#BB8FCE",
+      "icon": "shopping-bag"
+    },
+    {
+      "name": "Utilities",
+      "amount": 458.70,
+      "percentage": 10.8,
+      "transactionCount": 3,
+      "color": "#85C1E9",
+      "icon": "zap"
+    }
+  ],
+  "trends": [
+    { "month": "2024-01", "totalSpent": 3890.25, "transactionCount": 42, "averageTransaction": 92.62 },
+    { "month": "2024-02", "totalSpent": 4150.80, "transactionCount": 38, "averageTransaction": 109.23 },
+    { "month": "2024-03", "totalSpent": 3750.60, "transactionCount": 45, "averageTransaction": 83.35 },
+    { "month": "2024-04", "totalSpent": 4200.45, "transactionCount": 39, "averageTransaction": 107.70 },
+    { "month": "2024-05", "totalSpent": 3980.30, "transactionCount": 44, "averageTransaction": 90.46 },
+    { "month": "2024-06", "totalSpent": 4250.75, "transactionCount": 47, "averageTransaction": 90.44 }
+  ],
+  "goals": [
+    {
+      "id": "goal_001",
+      "category": "Entertainment",
+      "monthlyBudget": 1000.00,
+      "currentSpent": 650.30,
+      "percentageUsed": 65.03,
+      "daysRemaining": 12,
+      "status": "on_track"
+    },
+    {
+      "id": "goal_002",
+      "category": "Groceries",
+      "monthlyBudget": 1500.00,
+      "currentSpent": 1450.80,
+      "percentageUsed": 96.72,
+      "daysRemaining": 12,
+      "status": "warning"
+    }
   ],
   "transactions": [
     {
-      "id": "tx-001",
-      "date": "2026-10-01",
-      "merchant": "Woolworths Food",
+      "id": "txn_123456",
+      "date": "2024-09-16T14:30:00Z",
+      "merchant": "Pick n Pay",
       "category": "Groceries",
-      "amount": 842.50,
-      "type": "debit"
+      "amount": 245.80,
+      "description": "Weekly groceries",
+      "paymentMethod": "Credit Card",
+      "icon": "shopping-cart",
+      "categoryColor": "#FF6B6B"
     },
     {
-      "id": "tx-002",
-      "date": "2026-10-02",
-      "merchant": "Shell Goodwood",
-      "category": "Fuel & Transport",
-      "amount": 650.00,
-      "type": "debit"
-    },
-    {
-      "id": "tx-003",
-      "date": "2026-10-03",
-      "merchant": "City of Cape Town Electricity",
-      "category": "Rent & Municipal",
-      "amount": 500.00,
-      "type": "debit"
-    },
-    {
-      "id": "tx-004",
-      "date": "2026-10-04",
-      "merchant": "Checkers Hyper",
-      "category": "Groceries",
-      "amount": 1240.20,
-      "type": "debit"
-    },
-    {
-      "id": "tx-005",
-      "date": "2026-10-05",
-      "merchant": "Netflix South Africa",
-      "category": "Subscriptions & Leisure",
+      "id": "txn_123457",
+      "date": "2024-09-15T10:15:00Z",
+      "merchant": "Netflix",
+      "category": "Entertainment",
       "amount": 199.00,
-      "type": "debit"
+      "description": "Monthly subscription",
+      "paymentMethod": "Debit Order",
+      "icon": "film",
+      "categoryColor": "#4ECDC4"
+    },
+    {
+      "id": "txn_123458",
+      "date": "2024-09-14T08:20:00Z",
+      "merchant": "Shell",
+      "category": "Transportation",
+      "amount": 450.00,
+      "description": "Fuel fill-up",
+      "paymentMethod": "Credit Card",
+      "icon": "car",
+      "categoryColor": "#45B7D1"
+    },
+    {
+      "id": "txn_123459",
+      "date": "2024-09-12T19:45:00Z",
+      "merchant": "Spur Steak Ranches",
+      "category": "Dining",
+      "amount": 380.50,
+      "description": "Dinner",
+      "paymentMethod": "Credit Card",
+      "icon": "utensils",
+      "categoryColor": "#F7DC6F"
+    },
+    {
+      "id": "txn_123460",
+      "date": "2024-09-10T11:00:00Z",
+      "merchant": "City Power / Eskom",
+      "category": "Utilities",
+      "amount": 458.70,
+      "description": "Prepaid electricity",
+      "paymentMethod": "EFT",
+      "icon": "zap",
+      "categoryColor": "#85C1E9"
     }
   ]
 }
