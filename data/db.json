@@ -5,84 +5,284 @@
     "email": "john.doe@email.com",
     "joinDate": "2023-01-15",
     "accountType": "premium",
-    "totalSpent": 15420.50,
+    "totalSpent": 15420.5,
     "currency": "ZAR"
   },
   "summary": {
     "period": "30d",
     "totalSpent": 4250.75,
-    "transactionCount": 47,
-    "averageTransaction": 90.44,
+    "transactionCount": 53,
+    "averageTransaction": 80.2,
     "topCategory": "Groceries",
     "comparedToPrevious": {
       "spentChange": 12.5,
       "transactionChange": -3.2
     }
   },
+  "summaries": [
+    {
+      "id": "7d",
+      "period": "7d",
+      "totalSpent": 1086.4,
+      "transactionCount": 13,
+      "averageTransaction": 83.57,
+      "topCategory": "Groceries",
+      "comparedToPrevious": {
+        "spentChange": -8.3,
+        "transactionChange": -5
+      }
+    },
+    {
+      "id": "30d",
+      "period": "30d",
+      "totalSpent": 4250.75,
+      "transactionCount": 53,
+      "averageTransaction": 80.2,
+      "topCategory": "Groceries",
+      "comparedToPrevious": {
+        "spentChange": 12.5,
+        "transactionChange": -3.2
+      }
+    },
+    {
+      "id": "90d",
+      "period": "90d",
+      "totalSpent": 12889,
+      "transactionCount": 157,
+      "averageTransaction": 82.1,
+      "topCategory": "Groceries",
+      "comparedToPrevious": {
+        "spentChange": 4.2,
+        "transactionChange": 2.1
+      }
+    }
+  ],
   "categories": [
     {
+      "id": "7d-groceries",
+      "period": "7d",
       "name": "Groceries",
-      "amount": 1250.30,
+      "amount": 312.4,
+      "percentage": 28.8,
+      "transactionCount": 4,
+      "color": "#FF6B6B",
+      "icon": "shopping-cart"
+    },
+    {
+      "id": "7d-transportation",
+      "period": "7d",
+      "name": "Transportation",
+      "amount": 225,
+      "percentage": 20.7,
+      "transactionCount": 3,
+      "color": "#45B7D1",
+      "icon": "car"
+    },
+    {
+      "id": "7d-entertainment",
+      "period": "7d",
+      "name": "Entertainment",
+      "amount": 199,
+      "percentage": 18.3,
+      "transactionCount": 1,
+      "color": "#4ECDC4",
+      "icon": "film"
+    },
+    {
+      "id": "7d-dining",
+      "period": "7d",
+      "name": "Dining",
+      "amount": 186.5,
+      "percentage": 17.2,
+      "transactionCount": 3,
+      "color": "#F7DC6F",
+      "icon": "utensils"
+    },
+    {
+      "id": "7d-shopping",
+      "period": "7d",
+      "name": "Shopping",
+      "amount": 89.9,
+      "percentage": 8.3,
+      "transactionCount": 1,
+      "color": "#BB8FCE",
+      "icon": "shopping-bag"
+    },
+    {
+      "id": "7d-utilities",
+      "period": "7d",
+      "name": "Utilities",
+      "amount": 73.6,
+      "percentage": 6.7,
+      "transactionCount": 1,
+      "color": "#85C1E9",
+      "icon": "zap"
+    },
+    {
+      "id": "30d-groceries",
+      "period": "30d",
+      "name": "Groceries",
+      "amount": 1250.3,
       "percentage": 29.4,
       "transactionCount": 15,
       "color": "#FF6B6B",
       "icon": "shopping-cart"
     },
     {
+      "id": "30d-entertainment",
+      "period": "30d",
       "name": "Entertainment",
-      "amount": 890.20,
+      "amount": 890.2,
       "percentage": 20.9,
       "transactionCount": 8,
       "color": "#4ECDC4",
       "icon": "film"
     },
     {
+      "id": "30d-transportation",
+      "period": "30d",
       "name": "Transportation",
       "amount": 680.45,
-      "percentage": 16.0,
+      "percentage": 16,
       "transactionCount": 12,
       "color": "#45B7D1",
       "icon": "car"
     },
     {
+      "id": "30d-dining",
+      "period": "30d",
       "name": "Dining",
-      "amount": 520.30,
+      "amount": 520.3,
       "percentage": 12.2,
       "transactionCount": 9,
       "color": "#F7DC6F",
       "icon": "utensils"
     },
     {
+      "id": "30d-shopping",
+      "period": "30d",
       "name": "Shopping",
-      "amount": 450.80,
+      "amount": 450.8,
       "percentage": 10.6,
       "transactionCount": 6,
       "color": "#BB8FCE",
       "icon": "shopping-bag"
     },
     {
+      "id": "30d-utilities",
+      "period": "30d",
       "name": "Utilities",
-      "amount": 458.70,
+      "amount": 458.7,
       "percentage": 10.8,
       "transactionCount": 3,
+      "color": "#85C1E9",
+      "icon": "zap"
+    },
+    {
+      "id": "90d-groceries",
+      "period": "90d",
+      "name": "Groceries",
+      "amount": 3720.85,
+      "percentage": 28.9,
+      "transactionCount": 44,
+      "color": "#FF6B6B",
+      "icon": "shopping-cart"
+    },
+    {
+      "id": "90d-entertainment",
+      "period": "90d",
+      "name": "Entertainment",
+      "amount": 2410.6,
+      "percentage": 18.7,
+      "transactionCount": 24,
+      "color": "#4ECDC4",
+      "icon": "film"
+    },
+    {
+      "id": "90d-transportation",
+      "period": "90d",
+      "name": "Transportation",
+      "amount": 2105.3,
+      "percentage": 16.3,
+      "transactionCount": 35,
+      "color": "#45B7D1",
+      "icon": "car"
+    },
+    {
+      "id": "90d-shopping",
+      "period": "90d",
+      "name": "Shopping",
+      "amount": 1695.25,
+      "percentage": 13.1,
+      "transactionCount": 18,
+      "color": "#BB8FCE",
+      "icon": "shopping-bag"
+    },
+    {
+      "id": "90d-dining",
+      "period": "90d",
+      "name": "Dining",
+      "amount": 1580.9,
+      "percentage": 12.3,
+      "transactionCount": 27,
+      "color": "#F7DC6F",
+      "icon": "utensils"
+    },
+    {
+      "id": "90d-utilities",
+      "period": "90d",
+      "name": "Utilities",
+      "amount": 1376.1,
+      "percentage": 10.7,
+      "transactionCount": 9,
       "color": "#85C1E9",
       "icon": "zap"
     }
   ],
   "trends": [
-    { "month": "2024-01", "totalSpent": 3890.25, "transactionCount": 42, "averageTransaction": 92.62 },
-    { "month": "2024-02", "totalSpent": 4150.80, "transactionCount": 38, "averageTransaction": 109.23 },
-    { "month": "2024-03", "totalSpent": 3750.60, "transactionCount": 45, "averageTransaction": 83.35 },
-    { "month": "2024-04", "totalSpent": 4200.45, "transactionCount": 39, "averageTransaction": 107.70 },
-    { "month": "2024-05", "totalSpent": 3980.30, "transactionCount": 44, "averageTransaction": 90.46 },
-    { "month": "2024-06", "totalSpent": 4250.75, "transactionCount": 47, "averageTransaction": 90.44 }
+    {
+      "month": "2024-01",
+      "totalSpent": 3890.25,
+      "transactionCount": 42,
+      "averageTransaction": 92.62
+    },
+    {
+      "month": "2024-02",
+      "totalSpent": 4150.8,
+      "transactionCount": 38,
+      "averageTransaction": 109.23
+    },
+    {
+      "month": "2024-03",
+      "totalSpent": 3750.6,
+      "transactionCount": 45,
+      "averageTransaction": 83.35
+    },
+    {
+      "month": "2024-04",
+      "totalSpent": 4200.45,
+      "transactionCount": 39,
+      "averageTransaction": 107.7
+    },
+    {
+      "month": "2024-05",
+      "totalSpent": 3980.3,
+      "transactionCount": 44,
+      "averageTransaction": 90.46
+    },
+    {
+      "month": "2024-06",
+      "totalSpent": 4250.75,
+      "transactionCount": 47,
+      "averageTransaction": 90.44
+    }
   ],
   "goals": [
     {
       "id": "goal_001",
       "category": "Entertainment",
-      "monthlyBudget": 1000.00,
-      "currentSpent": 650.30,
+      "monthlyBudget": 1000,
+      "currentSpent": 650.3,
       "percentageUsed": 65.03,
       "daysRemaining": 12,
       "status": "on_track"
@@ -90,8 +290,8 @@
     {
       "id": "goal_002",
       "category": "Groceries",
-      "monthlyBudget": 1500.00,
-      "currentSpent": 1450.80,
+      "monthlyBudget": 1500,
+      "currentSpent": 1450.8,
       "percentageUsed": 96.72,
       "daysRemaining": 12,
       "status": "warning"
@@ -103,7 +303,7 @@
       "date": "2024-09-16T14:30:00Z",
       "merchant": "Pick n Pay",
       "category": "Groceries",
-      "amount": 245.80,
+      "amount": 245.8,
       "description": "Weekly groceries",
       "paymentMethod": "Credit Card",
       "icon": "shopping-cart",
@@ -114,7 +314,7 @@
       "date": "2024-09-15T10:15:00Z",
       "merchant": "Netflix",
       "category": "Entertainment",
-      "amount": 199.00,
+      "amount": 199,
       "description": "Monthly subscription",
       "paymentMethod": "Debit Order",
       "icon": "film",
@@ -125,7 +325,7 @@
       "date": "2024-09-14T08:20:00Z",
       "merchant": "Shell",
       "category": "Transportation",
-      "amount": 450.00,
+      "amount": 450,
       "description": "Fuel fill-up",
       "paymentMethod": "Credit Card",
       "icon": "car",
@@ -136,7 +336,7 @@
       "date": "2024-09-12T19:45:00Z",
       "merchant": "Spur Steak Ranches",
       "category": "Dining",
-      "amount": 380.50,
+      "amount": 380.5,
       "description": "Dinner",
       "paymentMethod": "Credit Card",
       "icon": "utensils",
@@ -147,8 +347,173 @@
       "date": "2024-09-10T11:00:00Z",
       "merchant": "City Power / Eskom",
       "category": "Utilities",
-      "amount": 458.70,
+      "amount": 458.7,
       "description": "Prepaid electricity",
+      "paymentMethod": "EFT",
+      "icon": "zap",
+      "categoryColor": "#85C1E9"
+    },
+    {
+      "id": "txn_123461",
+      "date": "2024-09-17T17:05:00Z",
+      "merchant": "Checkers",
+      "category": "Groceries",
+      "amount": 66.6,
+      "description": "Top-up shop",
+      "paymentMethod": "Debit Card",
+      "icon": "shopping-cart",
+      "categoryColor": "#FF6B6B"
+    },
+    {
+      "id": "txn_123462",
+      "date": "2024-09-13T12:30:00Z",
+      "merchant": "Nando's",
+      "category": "Dining",
+      "amount": 139.8,
+      "description": "Lunch",
+      "paymentMethod": "Debit Card",
+      "icon": "utensils",
+      "categoryColor": "#F7DC6F"
+    },
+    {
+      "id": "txn_123463",
+      "date": "2024-09-11T07:45:00Z",
+      "merchant": "Uber",
+      "category": "Transportation",
+      "amount": 112.5,
+      "description": "Ride to office",
+      "paymentMethod": "Credit Card",
+      "icon": "car",
+      "categoryColor": "#45B7D1"
+    },
+    {
+      "id": "txn_123464",
+      "date": "2024-09-09T15:20:00Z",
+      "merchant": "Takealot",
+      "category": "Shopping",
+      "amount": 450.8,
+      "description": "Headphones",
+      "paymentMethod": "Credit Card",
+      "icon": "shopping-bag",
+      "categoryColor": "#BB8FCE"
+    },
+    {
+      "id": "txn_123465",
+      "date": "2024-09-08T20:00:00Z",
+      "merchant": "Ster-Kinekor",
+      "category": "Entertainment",
+      "amount": 240,
+      "description": "Movie tickets",
+      "paymentMethod": "Debit Card",
+      "icon": "film",
+      "categoryColor": "#4ECDC4"
+    },
+    {
+      "id": "txn_123466",
+      "date": "2024-09-06T09:10:00Z",
+      "merchant": "Woolworths Food",
+      "category": "Groceries",
+      "amount": 512.35,
+      "description": "Monthly stock-up",
+      "paymentMethod": "Credit Card",
+      "icon": "shopping-cart",
+      "categoryColor": "#FF6B6B"
+    },
+    {
+      "id": "txn_123467",
+      "date": "2024-09-04T13:40:00Z",
+      "merchant": "Mr Price",
+      "category": "Shopping",
+      "amount": 289.9,
+      "description": "Clothing",
+      "paymentMethod": "Debit Card",
+      "icon": "shopping-bag",
+      "categoryColor": "#BB8FCE"
+    },
+    {
+      "id": "txn_123468",
+      "date": "2024-09-16T11:20:00Z",
+      "merchant": "Clicks",
+      "category": "Shopping",
+      "amount": 89.9,
+      "description": "Personal care essentials",
+      "paymentMethod": "Debit Card",
+      "icon": "shopping-bag",
+      "categoryColor": "#BB8FCE"
+    },
+    {
+      "id": "txn_123469",
+      "date": "2024-09-14T16:10:00Z",
+      "merchant": "Vodacom",
+      "category": "Utilities",
+      "amount": 73.6,
+      "description": "Mobile data bundle",
+      "paymentMethod": "Debit Order",
+      "icon": "zap",
+      "categoryColor": "#85C1E9"
+    },
+    {
+      "id": "txn_123470",
+      "date": "2024-08-12T10:15:00Z",
+      "merchant": "Woolworths Food",
+      "category": "Groceries",
+      "amount": 640.5,
+      "description": "Pantry restock",
+      "paymentMethod": "Credit Card",
+      "icon": "shopping-cart",
+      "categoryColor": "#FF6B6B"
+    },
+    {
+      "id": "txn_123471",
+      "date": "2024-08-05T19:30:00Z",
+      "merchant": "Showmax",
+      "category": "Entertainment",
+      "amount": 199,
+      "description": "Streaming subscription",
+      "paymentMethod": "Debit Order",
+      "icon": "film",
+      "categoryColor": "#4ECDC4"
+    },
+    {
+      "id": "txn_123472",
+      "date": "2024-07-28T08:00:00Z",
+      "merchant": "Engen",
+      "category": "Transportation",
+      "amount": 520,
+      "description": "Fuel fill-up",
+      "paymentMethod": "Credit Card",
+      "icon": "car",
+      "categoryColor": "#45B7D1"
+    },
+    {
+      "id": "txn_123473",
+      "date": "2024-07-21T13:10:00Z",
+      "merchant": "Kauai",
+      "category": "Dining",
+      "amount": 165.4,
+      "description": "Smoothie and wrap",
+      "paymentMethod": "Debit Card",
+      "icon": "utensils",
+      "categoryColor": "#F7DC6F"
+    },
+    {
+      "id": "txn_123474",
+      "date": "2024-07-14T15:45:00Z",
+      "merchant": "Dis-Chem",
+      "category": "Shopping",
+      "amount": 340.25,
+      "description": "Vitamins and wellness",
+      "paymentMethod": "Credit Card",
+      "icon": "shopping-bag",
+      "categoryColor": "#BB8FCE"
+    },
+    {
+      "id": "txn_123475",
+      "date": "2024-07-03T09:00:00Z",
+      "merchant": "City of Johannesburg",
+      "category": "Utilities",
+      "amount": 443.8,
+      "description": "Municipal water & lights",
       "paymentMethod": "EFT",
       "icon": "zap",
       "categoryColor": "#85C1E9"
