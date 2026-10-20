@@ -1,0 +1,158 @@
+import type { ReactNode } from 'react';
+import {
+  Car,
+  Film,
+  Receipt,
+  ShoppingBag,
+  ShoppingCart,
+  Utensils,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react';
+import type { SpendingPeriod, Transaction } from '../../types/spending';
+import { formatZAR } from '../../utils/formatCurrency';
+
+const CATEGORY_ICONS: Record<string, LucideIcon> = {
+  'shopping-cart': ShoppingCart,
+  'shopping-bag': ShoppingBag,
+  film: Film,
+  car: Car,
+  utensils: Utensils,
+  zap: Zap,
+};
+
+const PERIOD_DAYS: Record<SpendingPeriod, number> = {
+  '7d': 7,
+  '30d': 30,
+  '90d': 90,
+  '1y': 365,
+};
+
+const PERIOD_LABELS: Record<SpendingPeriod, string> = {
+  '7d': 'Last 7 days',
+  '30d': 'Last 30 days',
+  '90d': 'Last 90 days',
+  '1y': 'Last year',
+};
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+const LEDGER_ANCHOR_MS = Date.parse('2024-09-17T23:59:59Z');
+
+const dateFormat = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+function filterByPeriod(transactions: Transaction[], period: SpendingPeriod): Transaction[] {
+  const cutoff = LEDGER_ANCHOR_MS - PERIOD_DAYS[period] * DAY_MS;
+  return transactions.filter((txn) => Date.parse(txn.date) >= cutoff);
+}
+
+function ListFrame({ children, subtitle, busy = false }: { children: ReactNode; subtitle: string; busy?: boolean }) {
+  return (
+    <article
+      aria-labelledby="transactions-title"
+      aria-busy={busy}
+      className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+    >
+      <div className="flex items-baseline justify-between gap-3">
+        <h2 id="transactions-title" className="text-sm font-semibold text-slate-900">
+          Recent transactions
+        </h2>
+        <p className="truncate text-xs text-slate-500">{subtitle}</p>
+      </div>
+      {children}
+    </article>
+  );
+}
+
+function TransactionSkeleton() {
+  return (
+    <div aria-hidden="true" className="mt-4 space-y-4">
+      {Array.from({ length: 4 }, (_, i) => (
+        <div key={i} className="flex items-center gap-3">
+          <div className="skeleton size-10 shrink-0 rounded-xl" />
+          <div className="flex-1 space-y-1.5">
+            <div className="skeleton h-4 w-32" />
+            <div className="skeleton h-3 w-24" />
+          </div>
+          <div className="skeleton h-4 w-20" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function TransactionRow({ transaction }: { transaction: Transaction }) {
+  const Icon = CATEGORY_ICONS[transaction.icon] ?? Receipt;
+  const date = new Date(transaction.date);
+
+  return (
+    <li className="flex items-center gap-3 py-3">
+      <span
+        aria-hidden="true"
+        className="flex size-10 shrink-0 items-center justify-center rounded-xl"
+        style={{ backgroundColor: `${transaction.categoryColor}1F`, color: transaction.categoryColor }}
+      >
+        <Icon className="size-[18px]" strokeWidth={2.25} />
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-sm font-semibold text-slate-900">{transaction.merchant}</p>
+        <p className="truncate text-xs text-slate-500">
+          {transaction.category} · <time dateTime={transaction.date}>{dateFormat.format(date)}</time>
+        </p>
+      </div>
+      <div className="shrink-0 text-right">
+        <p className="text-sm font-semibold text-slate-900 tabular-nums">{formatZAR(-transaction.amount)}</p>
+        <p className="text-xs text-slate-500">{transaction.paymentMethod}</p>
+      </div>
+    </li>
+  );
+}
+
+interface TransactionListProps {
+  transactions: Transaction[];
+  period: SpendingPeriod;
+  selectedCategory?: string;
+  isLoading: boolean;
+  error: string | null;
+}
+
+export function TransactionList({
+  transactions,
+  period,
+  selectedCategory,
+  isLoading,
+  error,
+}: TransactionListProps) {
+  const periodTransactions = filterByPeriod(transactions, period);
+  const categoryLabel = selectedCategory ?? 'All categories';
+  const subtitle = `${categoryLabel} · ${PERIOD_LABELS[period]}`;
+
+  if (isLoading) {
+    return (
+      <ListFrame subtitle={subtitle} busy>
+        <TransactionSkeleton />
+      </ListFrame>
+    );
+  }
+
+  if (error || periodTransactions.length === 0) {
+    return (
+      <ListFrame subtitle={subtitle}>
+        <p className="mt-3 text-sm text-slate-500">
+          {error ? 'Transactions are unavailable right now.' : 'No transactions found for this filter.'}
+        </p>
+      </ListFrame>
+    );
+  }
+
+  const sorted = [...periodTransactions].sort((a, b) => b.date.localeCompare(a.date));
+
+  return (
+    <ListFrame subtitle={`${subtitle} (${sorted.length})`}>
+      <ul className="mt-2 divide-y divide-slate-100">
+        {sorted.map((transaction) => (
+          <TransactionRow key={transaction.id} transaction={transaction} />
+        ))}
+      </ul>
+    </ListFrame>
+  );
+}
