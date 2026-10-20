@@ -22,9 +22,9 @@ interface DeltaStyle {
 
 const DELTA_STYLES: Record<DeltaTone, DeltaStyle> = {
   decrease: { Icon: ArrowDownRight, verb: 'Down', className: 'bg-emerald-50 text-emerald-700 ring-emerald-600/20' },
-  flat: { Icon: Minus, verb: 'No change', className: 'bg-slate-100 text-slate-600 ring-slate-500/20' },
+  flat: { Icon: Minus, verb: 'No change', className: 'bg-capitec-sky text-capitec-blue ring-capitec-cyan/25' },
   caution: { Icon: ArrowUpRight, verb: 'Up', className: 'bg-amber-50 text-amber-800 ring-amber-600/25' },
-  alert: { Icon: ArrowUpRight, verb: 'Up', className: 'bg-rose-50 text-rose-700 ring-rose-600/20' },
+  alert: { Icon: ArrowUpRight, verb: 'Up', className: 'bg-rose-50 text-capitec-red ring-capitec-red/20' },
 };
 
 function getDeltaTone(change: number): DeltaTone {
@@ -58,9 +58,13 @@ function CardShell({ children, busy = false }: { children: ReactNode; busy?: boo
     <article
       aria-labelledby="hero-spend-label"
       aria-busy={busy}
-      className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+      className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm"
     >
-      {children}
+      <div
+        aria-hidden="true"
+        className="h-1.5 w-full bg-gradient-to-r from-capitec-cyan via-capitec-blue to-capitec-red"
+      />
+      <div className="p-5 sm:p-6">{children}</div>
     </article>
   );
 }
@@ -93,7 +97,7 @@ function HeroCardError({ message, onRetry }: HeroCardErrorProps) {
   return (
     <CardShell>
       <div role="alert" className="flex flex-col items-start gap-3">
-        <div className="flex items-center gap-2 text-rose-700">
+        <div className="flex items-center gap-2 text-capitec-red">
           <CircleAlert aria-hidden="true" className="size-5" />
           <h2 id="hero-spend-label" className="text-base font-semibold">
             We couldn't load your spending
@@ -103,7 +107,7 @@ function HeroCardError({ message, onRetry }: HeroCardErrorProps) {
         <button
           type="button"
           onClick={onRetry}
-          className="min-h-11 rounded-xl bg-slate-900 px-4 text-sm font-semibold text-white transition-colors hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+          className="min-h-11 rounded-xl bg-capitec-cyan px-4 text-sm font-semibold text-white transition-colors hover:bg-capitec-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-capitec-cyan"
         >
           Try again
         </button>
@@ -161,7 +165,7 @@ function HeroCardContent({ summary, period, activeCategory, onClearCategory }: H
   return (
     <CardShell>
       <div className="flex items-center justify-between gap-2">
-        <h2 id="hero-spend-label" className="flex items-center gap-2 text-sm font-medium text-slate-500">
+        <h2 id="hero-spend-label" className="flex items-center gap-2 text-sm font-semibold text-capitec-blue">
           {activeCategory && (
             <span
               aria-hidden="true"
@@ -170,14 +174,14 @@ function HeroCardContent({ summary, period, activeCategory, onClearCategory }: H
             />
           )}
           <span>
-            {metrics.heading} <span className="text-slate-400">· last {periodLabel}</span>
+            {metrics.heading} <span className="font-normal text-slate-400">· last {periodLabel}</span>
           </span>
         </h2>
         {activeCategory && onClearCategory && (
           <button
             type="button"
             onClick={onClearCategory}
-            className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-200 focus-visible:outline-2 focus-visible:outline-emerald-500"
+            className="inline-flex items-center gap-1 rounded-full bg-capitec-sky px-2.5 py-1 text-xs font-semibold text-capitec-blue transition-colors hover:bg-capitec-cyan hover:text-white focus-visible:outline-2 focus-visible:outline-capitec-cyan"
           >
             <span>Clear filter</span>
             <X aria-hidden="true" className="size-3.5" />
@@ -185,7 +189,7 @@ function HeroCardContent({ summary, period, activeCategory, onClearCategory }: H
         )}
       </div>
 
-      <p className="mt-2 text-4xl font-extrabold tracking-tight text-slate-950 tabular-nums sm:text-5xl">
+      <p className="mt-2 text-4xl font-extrabold tracking-tight text-capitec-navy tabular-nums sm:text-5xl">
         {formatZAR(metrics.amount)}
       </p>
 
@@ -199,11 +203,11 @@ function HeroCardContent({ summary, period, activeCategory, onClearCategory }: H
       <dl className="mt-5 grid grid-cols-2 gap-4 border-t border-slate-100 pt-4">
         <div>
           <dt className="text-xs font-medium text-slate-500">Transactions</dt>
-          <dd className="mt-0.5 text-base font-semibold text-slate-900 tabular-nums">{metrics.transactionCount}</dd>
+          <dd className="mt-0.5 text-base font-bold text-capitec-navy tabular-nums">{metrics.transactionCount}</dd>
         </div>
         <div>
           <dt className="text-xs font-medium text-slate-500">{metrics.secondaryLabel}</dt>
-          <dd className="mt-0.5 truncate text-base font-semibold text-slate-900">{metrics.secondaryValue}</dd>
+          <dd className="mt-0.5 truncate text-base font-bold text-capitec-navy">{metrics.secondaryValue}</dd>
         </div>
       </dl>
     </CardShell>

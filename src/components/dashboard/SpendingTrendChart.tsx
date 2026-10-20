@@ -43,13 +43,13 @@ function TrendFrame({ children, subtitle, busy = false }: TrendFrameProps) {
     <article
       aria-labelledby="spending-trend-title"
       aria-busy={busy}
-      className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+      className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm sm:p-6"
     >
       <div className="flex items-baseline justify-between gap-2">
-        <h2 id="spending-trend-title" className="text-sm font-semibold text-slate-900">
+        <h2 id="spending-trend-title" className="text-sm font-semibold text-capitec-navy">
           Monthly spending trend
         </h2>
-        {subtitle && <p className="text-xs font-medium text-slate-500 tabular-nums">{subtitle}</p>}
+        {subtitle && <p className="text-xs font-semibold text-capitec-blue tabular-nums">{subtitle}</p>}
       </div>
       {children}
     </article>
@@ -99,39 +99,40 @@ export function SpendingTrendChart({ trends, isLoading }: SpendingTrendChartProp
           <AreaChart data={chartData} margin={{ top: 6, right: 6, left: -16, bottom: 0 }}>
             <defs>
               <linearGradient id="spendTrendFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#0f172a" stopOpacity={0.18} />
-                <stop offset="95%" stopColor="#0f172a" stopOpacity={0.01} />
+                <stop offset="5%" stopColor="#009de0" stopOpacity={0.28} />
+                <stop offset="95%" stopColor="#009de0" stopOpacity={0.02} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
             <XAxis
               dataKey="label"
               axisLine={false}
               tickLine={false}
-              tick={{ fill: '#64748b', fontSize: 12 }}
+              tick={{ fill: '#00486d', fontSize: 12 }}
             />
             <YAxis
               axisLine={false}
               tickLine={false}
               tickFormatter={formatAxisRand}
-              tick={{ fill: '#64748b', fontSize: 12 }}
+              tick={{ fill: '#00486d', fontSize: 12 }}
             />
             <Tooltip
               formatter={(value) => [formatZAR(Number(value)), 'Total spent']}
               contentStyle={{
                 borderRadius: '0.75rem',
-                borderColor: '#e2e8f0',
+                borderColor: '#009de0',
                 fontSize: '0.75rem',
                 fontWeight: 600,
+                color: '#002b49',
               }}
             />
             <Area
               type="monotone"
               dataKey="totalSpent"
-              stroke="#0f172a"
-              strokeWidth={2.25}
+              stroke="#009de0"
+              strokeWidth={2.5}
               fill="url(#spendTrendFill)"
-              activeDot={{ r: 4, fill: '#0f172a' }}
+              activeDot={{ r: 4, fill: '#00486d', stroke: '#ffffff', strokeWidth: 1.5 }}
             />
           </AreaChart>
         </ResponsiveContainer>

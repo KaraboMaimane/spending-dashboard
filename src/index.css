@@ -2,6 +2,12 @@
 
 @theme {
   --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --color-capitec-navy: #002b49;
+  --color-capitec-blue: #00486d;
+  --color-capitec-cyan: #009de0;
+  --color-capitec-sky: #e6f6fc;
+  --color-capitec-red: #e31b23;
+  --color-capitec-surface: #f4f8fb;
   --animate-shimmer: shimmer 1.6s ease-in-out infinite;
 
   @keyframes shimmer {
@@ -24,13 +30,13 @@
   }
 
   body {
-    @apply bg-slate-50 font-sans text-slate-900;
+    @apply bg-capitec-surface font-sans text-capitec-navy;
   }
 }
 
 @utility skeleton {
   @apply animate-shimmer rounded-md bg-[length:200%_100%];
-  background-image: linear-gradient(90deg, var(--color-slate-200) 25%, var(--color-slate-100) 50%, var(--color-slate-200) 75%);
+  background-image: linear-gradient(90deg, var(--color-slate-200) 25%, var(--color-capitec-sky) 50%, var(--color-slate-200) 75%);
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;

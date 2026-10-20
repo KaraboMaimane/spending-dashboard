@@ -17,16 +17,17 @@ function ActionButton({
   ...rest
 }: ActionButtonProps) {
   const tone = active
-    ? 'border-slate-900 bg-slate-900 text-white hover:bg-slate-800'
-    : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-100';
+    ? 'border-capitec-blue bg-capitec-blue text-white hover:bg-capitec-navy'
+    : 'border-slate-200/90 bg-white text-capitec-navy hover:border-capitec-cyan/50 hover:bg-capitec-sky/60';
+  const iconTone = active ? 'text-white' : 'text-capitec-cyan';
 
   return (
     <button
       type="button"
-      className={`group flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-semibold shadow-sm transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 ${tone} ${className}`}
+      className={`group flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-semibold shadow-sm transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-capitec-cyan ${tone} ${className}`}
       {...rest}
     >
-      <Icon aria-hidden="true" className={`size-4 shrink-0 ${iconClassName}`} strokeWidth={2.25} />
+      <Icon aria-hidden="true" className={`size-4 shrink-0 ${iconTone} ${iconClassName}`} strokeWidth={2.25} />
       <span>{label}</span>
     </button>
   );

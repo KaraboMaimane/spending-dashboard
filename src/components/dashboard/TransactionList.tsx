@@ -64,11 +64,11 @@ function ListFrame({ children, subtitle, busy = false, collapsed, onToggleCollap
     <article
       aria-labelledby="transactions-title"
       aria-busy={busy}
-      className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+      className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm sm:p-6"
     >
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
-          <h2 id="transactions-title" className="text-sm font-semibold text-slate-900">
+          <h2 id="transactions-title" className="text-sm font-semibold text-capitec-navy">
             Recent transactions
           </h2>
           <p className="mt-0.5 truncate text-xs text-slate-500">{subtitle}</p>
@@ -78,7 +78,7 @@ function ListFrame({ children, subtitle, busy = false, collapsed, onToggleCollap
           aria-expanded={!collapsed}
           aria-controls="transactions-scroll-region"
           onClick={onToggleCollapse}
-          className="inline-flex min-h-9 shrink-0 items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 px-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-emerald-500"
+          className="inline-flex min-h-9 shrink-0 items-center gap-1.5 rounded-xl border border-capitec-cyan/30 bg-capitec-sky/70 px-3 text-xs font-semibold text-capitec-blue transition-colors hover:bg-capitec-cyan hover:text-white focus-visible:outline-2 focus-visible:outline-capitec-cyan"
         >
           <span>{toggleLabel}</span>
           <ToggleIcon aria-hidden="true" className="size-3.5" />
@@ -120,13 +120,13 @@ function TransactionRow({ transaction }: { transaction: Transaction }) {
         <Icon className="size-[18px]" strokeWidth={2.25} />
       </span>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-semibold text-slate-900">{transaction.merchant}</p>
+        <p className="truncate text-sm font-semibold text-capitec-navy">{transaction.merchant}</p>
         <p className="truncate text-xs text-slate-500">
           {transaction.category} · <time dateTime={transaction.date}>{dateFormat.format(date)}</time>
         </p>
       </div>
       <div className="shrink-0 text-right">
-        <p className="text-sm font-semibold text-slate-900 tabular-nums">{formatZAR(-transaction.amount)}</p>
+        <p className="text-sm font-bold text-capitec-navy tabular-nums">{formatZAR(-transaction.amount)}</p>
         <p className="text-xs text-slate-500">{transaction.paymentMethod}</p>
       </div>
     </li>
@@ -184,7 +184,7 @@ function InfiniteTransactionFeed({ items }: InfiniteTransactionFeedProps) {
           <button
             type="button"
             onClick={loadMore}
-            className="font-semibold text-slate-900 hover:text-emerald-700 focus-visible:outline-2 focus-visible:outline-emerald-500"
+            className="font-semibold text-capitec-cyan hover:text-capitec-blue focus-visible:outline-2 focus-visible:outline-capitec-cyan"
           >
             Load more
           </button>

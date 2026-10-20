@@ -15,17 +15,17 @@ function CardFrame({ children, busy = false, selectedCategory, onClear }: CardFr
     <article
       aria-labelledby="category-distribution-title"
       aria-busy={busy}
-      className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+      className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm sm:p-6"
     >
       <div className="flex items-center justify-between gap-2">
-        <h2 id="category-distribution-title" className="text-sm font-semibold text-slate-900">
+        <h2 id="category-distribution-title" className="text-sm font-semibold text-capitec-navy">
           Where your money went
         </h2>
         {selectedCategory && onClear && (
           <button
             type="button"
             onClick={onClear}
-            className="text-xs font-medium text-emerald-700 hover:text-emerald-800 focus-visible:outline-2 focus-visible:outline-emerald-500"
+            className="text-xs font-semibold text-capitec-cyan hover:text-capitec-blue focus-visible:outline-2 focus-visible:outline-capitec-cyan"
           >
             Show all
           </button>
@@ -98,6 +98,7 @@ function CategoryDonutChart({ categories, selectedCategory, onSelect }: Category
               borderColor: '#e2e8f0',
               fontSize: '0.75rem',
               fontWeight: 600,
+              color: '#002b49',
             }}
           />
         </PieChart>
@@ -114,8 +115,8 @@ interface CategoryRowProps {
 
 function CategoryRow({ category, highlighted, onSelect }: CategoryRowProps) {
   const highlight = highlighted
-    ? 'bg-slate-900 text-white shadow-xs'
-    : 'text-slate-700 hover:bg-slate-50';
+    ? 'bg-capitec-blue text-white shadow-xs'
+    : 'text-capitec-navy hover:bg-capitec-sky/60';
 
   return (
     <li>
@@ -123,7 +124,7 @@ function CategoryRow({ category, highlighted, onSelect }: CategoryRowProps) {
         type="button"
         aria-pressed={highlighted}
         onClick={() => onSelect(category.name)}
-        className={`flex w-full items-center justify-between gap-3 rounded-xl px-2.5 py-2 text-left transition-colors focus-visible:outline-2 focus-visible:outline-emerald-500 ${highlight}`}
+        className={`flex w-full items-center justify-between gap-3 rounded-xl px-2.5 py-2 text-left transition-colors focus-visible:outline-2 focus-visible:outline-capitec-cyan ${highlight}`}
       >
         <span className="flex min-w-0 items-center gap-2.5">
           <span
@@ -134,10 +135,10 @@ function CategoryRow({ category, highlighted, onSelect }: CategoryRowProps) {
           <span className="truncate text-sm font-medium">{category.name}</span>
         </span>
         <span className="flex shrink-0 items-baseline gap-2 tabular-nums">
-          <span className={`text-sm font-semibold ${highlighted ? 'text-white' : 'text-slate-900'}`}>
+          <span className={`text-sm font-semibold ${highlighted ? 'text-white' : 'text-capitec-navy'}`}>
             {formatZAR(category.amount)}
           </span>
-          <span className={`w-12 text-right text-xs ${highlighted ? 'text-slate-300' : 'text-slate-500'}`}>
+          <span className={`w-12 text-right text-xs ${highlighted ? 'text-sky-200' : 'text-slate-500'}`}>
             {category.percentage.toFixed(1)}%
           </span>
         </span>
