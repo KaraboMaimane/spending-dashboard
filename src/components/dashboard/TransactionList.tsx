@@ -1,6 +1,8 @@
-import type { ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import {
   Car,
+  ChevronDown,
+  ChevronUp,
   Film,
   Receipt,
   ShoppingBag,
@@ -35,6 +37,7 @@ const PERIOD_LABELS: Record<SpendingPeriod, string> = {
   '1y': 'Last year',
 };
 
+const PAGE_SIZE = 8;
 const DAY_MS = 24 * 60 * 60 * 1000;
 const LEDGER_ANCHOR_MS = Date.parse('2024-09-17T23:59:59Z');
 
@@ -45,20 +48,43 @@ function filterByPeriod(transactions: Transaction[], period: SpendingPeriod): Tr
   return transactions.filter((txn) => Date.parse(txn.date) >= cutoff);
 }
 
-function ListFrame({ children, subtitle, busy = false }: { children: ReactNode; subtitle: string; busy?: boolean }) {
+interface ListFrameProps {
+  children?: ReactNode;
+  subtitle: string;
+  busy?: boolean;
+  collapsed: boolean;
+  onToggleCollapse: () => void;
+}
+
+function ListFrame({ children, subtitle, busy = false, collapsed, onToggleCollapse }: ListFrameProps) {
+  const ToggleIcon = collapsed ? ChevronDown : ChevronUp;
+  const toggleLabel = collapsed ? 'Show' : 'Hide';
+
   return (
     <article
       aria-labelledby="transactions-title"
       aria-busy={busy}
       className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
     >
-      <div className="flex items-baseline justify-between gap-3">
-        <h2 id="transactions-title" className="text-sm font-semibold text-slate-900">
-          Recent transactions
-        </h2>
-        <p className="truncate text-xs text-slate-500">{subtitle}</p>
+      <div className="flex items-center justify-between gap-3">
+        <div className="min-w-0">
+          <h2 id="transactions-title" className="text-sm font-semibold text-slate-900">
+            Recent transactions
+          </h2>
+          <p className="mt-0.5 truncate text-xs text-slate-500">{subtitle}</p>
+        </div>
+        <button
+          type="button"
+          aria-expanded={!collapsed}
+          aria-controls="transactions-scroll-region"
+          onClick={onToggleCollapse}
+          className="inline-flex min-h-9 shrink-0 items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 px-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-emerald-500"
+        >
+          <span>{toggleLabel}</span>
+          <ToggleIcon aria-hidden="true" className="size-3.5" />
+        </button>
       </div>
-      {children}
+      {!collapsed && children}
     </article>
   );
 }
@@ -107,6 +133,67 @@ function TransactionRow({ transaction }: { transaction: Transaction }) {
   );
 }
 
+interface InfiniteTransactionFeedProps {
+  items: Transaction[];
+}
+
+function InfiniteTransactionFeed({ items }: InfiniteTransactionFeedProps) {
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+
+  const visibleItems = items.slice(0, visibleCount);
+  const hasMore = visibleCount < items.length;
+  const loadMore = () => setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, items.length));
+
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    const root = scrollContainerRef.current;
+    if (!sentinel || !root || !hasMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, items.length));
+        }
+      },
+      { root, rootMargin: '80px' }
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [hasMore, items.length]);
+
+  return (
+    <div id="transactions-scroll-region" className="mt-3">
+      <div
+        ref={scrollContainerRef}
+        className="max-h-80 overflow-y-auto pr-1 sm:max-h-96"
+      >
+        <ul className="divide-y divide-slate-100">
+          {visibleItems.map((transaction) => (
+            <TransactionRow key={transaction.id} transaction={transaction} />
+          ))}
+        </ul>
+        {hasMore && <div ref={sentinelRef} aria-hidden="true" className="h-4 w-full" />}
+      </div>
+      <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3 text-xs text-slate-500">
+        <span className="tabular-nums">
+          Showing {visibleItems.length} of {items.length}
+        </span>
+        {hasMore && (
+          <button
+            type="button"
+            onClick={loadMore}
+            className="font-semibold text-slate-900 hover:text-emerald-700 focus-visible:outline-2 focus-visible:outline-emerald-500"
+          >
+            Load more
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
 interface TransactionListProps {
   transactions: Transaction[];
   period: SpendingPeriod;
@@ -122,37 +209,39 @@ export function TransactionList({
   isLoading,
   error,
 }: TransactionListProps) {
+  const [collapsed, setCollapsed] = useState(false);
+  const toggleCollapse = () => setCollapsed((prev) => !prev);
   const periodTransactions = filterByPeriod(transactions, period);
   const categoryLabel = selectedCategory ?? 'All categories';
-  const subtitle = `${categoryLabel} · ${PERIOD_LABELS[period]}`;
+  const baseSubtitle = `${categoryLabel} · ${PERIOD_LABELS[period]}`;
 
   if (isLoading) {
     return (
-      <ListFrame subtitle={subtitle} busy>
+      <ListFrame subtitle={baseSubtitle} busy collapsed={collapsed} onToggleCollapse={toggleCollapse}>
         <TransactionSkeleton />
       </ListFrame>
     );
   }
 
   if (error || periodTransactions.length === 0) {
+    const emptyCopy = error ? 'Transactions are unavailable right now.' : 'No transactions found for this filter.';
     return (
-      <ListFrame subtitle={subtitle}>
-        <p className="mt-3 text-sm text-slate-500">
-          {error ? 'Transactions are unavailable right now.' : 'No transactions found for this filter.'}
-        </p>
+      <ListFrame subtitle={baseSubtitle} collapsed={collapsed} onToggleCollapse={toggleCollapse}>
+        <p className="mt-3 text-sm text-slate-500">{emptyCopy}</p>
       </ListFrame>
     );
   }
 
   const sorted = [...periodTransactions].sort((a, b) => b.date.localeCompare(a.date));
+  const feedKey = `${period}-${selectedCategory ?? 'all'}-${sorted.length}`;
 
   return (
-    <ListFrame subtitle={`${subtitle} (${sorted.length})`}>
-      <ul className="mt-2 divide-y divide-slate-100">
-        {sorted.map((transaction) => (
-          <TransactionRow key={transaction.id} transaction={transaction} />
-        ))}
-      </ul>
+    <ListFrame
+      subtitle={`${baseSubtitle} (${sorted.length})`}
+      collapsed={collapsed}
+      onToggleCollapse={toggleCollapse}
+    >
+      <InfiniteTransactionFeed key={feedKey} items={sorted} />
     </ListFrame>
   );
 }
