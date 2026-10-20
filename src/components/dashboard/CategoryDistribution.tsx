@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import type { ISpendingCategory } from '../../types/spending';
 import { formatZAR } from '../../utils/formatCurrency';
 
@@ -38,7 +39,7 @@ function CardFrame({ children, busy = false, selectedCategory, onClear }: CardFr
 function DistributionSkeleton() {
   return (
     <div aria-hidden="true" className="mt-4 space-y-4">
-      <div className="skeleton h-3 w-full rounded-full" />
+      <div className="skeleton mx-auto size-36 rounded-full" />
       {Array.from({ length: 6 }, (_, i) => (
         <div key={i} className="flex items-center justify-between gap-4">
           <div className="skeleton h-4 w-28" />
@@ -49,25 +50,58 @@ function DistributionSkeleton() {
   );
 }
 
-function DistributionBar({
-  categories,
-  selectedCategory,
-}: {
+function getSliceOpacity(categoryName: string, selectedCategory?: string): number {
+  if (!selectedCategory || selectedCategory === categoryName) {
+    return 1;
+  }
+  return 0.3;
+}
+
+interface CategoryDonutChartProps {
   categories: ISpendingCategory[];
   selectedCategory?: string;
-}) {
+  onSelect: (name: string) => void;
+}
+
+function CategoryDonutChart({ categories, selectedCategory, onSelect }: CategoryDonutChartProps) {
   return (
-    <div aria-hidden="true" className="mt-4 flex h-3 w-full gap-0.5 overflow-hidden rounded-full bg-slate-100">
-      {categories.map((category) => {
-        const dimmed = Boolean(selectedCategory && selectedCategory !== category.name);
-        return (
-          <span
-            key={category.name}
-            className={`h-full transition-opacity first:rounded-l-full last:rounded-r-full ${dimmed ? 'opacity-30' : 'opacity-100'}`}
-            style={{ width: `${category.percentage}%`, backgroundColor: category.color }}
+    <div className="mt-3 h-44 w-full">
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
+          <Pie
+            data={categories}
+            dataKey="amount"
+            nameKey="name"
+            cx="50%"
+            cy="50%"
+            innerRadius={48}
+            outerRadius={72}
+            paddingAngle={2}
+            onClick={(entry) => {
+              if (entry.name) onSelect(entry.name);
+            }}
+            className="cursor-pointer outline-none"
+          >
+            {categories.map((category) => (
+              <Cell
+                key={category.name}
+                fill={category.color}
+                fillOpacity={getSliceOpacity(category.name, selectedCategory)}
+                stroke="none"
+              />
+            ))}
+          </Pie>
+          <Tooltip
+            formatter={(value) => formatZAR(Number(value))}
+            contentStyle={{
+              borderRadius: '0.75rem',
+              borderColor: '#e2e8f0',
+              fontSize: '0.75rem',
+              fontWeight: 600,
+            }}
           />
-        );
-      })}
+        </PieChart>
+      </ResponsiveContainer>
     </div>
   );
 }
@@ -148,8 +182,12 @@ export function CategoryDistribution({
 
   return (
     <CardFrame selectedCategory={selectedCategory} onClear={() => onSelectCategory?.(undefined)}>
-      <DistributionBar categories={sorted} selectedCategory={selectedCategory} />
-      <ul className="mt-4 -mx-1 space-y-1">
+      <CategoryDonutChart
+        categories={sorted}
+        selectedCategory={selectedCategory}
+        onSelect={handleToggle}
+      />
+      <ul className="mt-2 -mx-1 space-y-1">
         {sorted.map((category) => (
           <CategoryRow
             key={category.name}

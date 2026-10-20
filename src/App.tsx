@@ -5,6 +5,7 @@ import { HeroSpendingCard } from './components/dashboard/HeroSpendingCard';
 import { QuickActions } from './components/dashboard/QuickActions';
 import { CategoryFilterPanel } from './components/dashboard/CategoryFilterPanel';
 import { CategoryDistribution } from './components/dashboard/CategoryDistribution';
+import { SpendingTrendChart } from './components/dashboard/SpendingTrendChart';
 import { TransactionList } from './components/dashboard/TransactionList';
 
 const FILTER_PANEL_ID = 'dashboard-category-filters';
@@ -15,6 +16,7 @@ function App() {
     profile,
     summary,
     categories,
+    trends,
     transactions,
     isLoading,
     error,
@@ -87,12 +89,15 @@ function App() {
         </>
       }
       secondary={
-        <CategoryDistribution
-          categories={categories}
-          selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
-          isLoading={busy}
-        />
+        <>
+          <CategoryDistribution
+            categories={categories}
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+            isLoading={busy}
+          />
+          <SpendingTrendChart trends={trends} isLoading={busy} />
+        </>
       }
     />
   );
